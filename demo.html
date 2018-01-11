@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>VanillaValidation</title>
+
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+        <link rel="stylesheet" href="dist/css/main.min.css">
+    </head>
+    <body>
+        <form class="form" data-validate>
+            <script>
+                var messages = {
+                    messageValueMissing: 'Dit veld is verplicht.',
+                    messageValueMissingSelect: 'Kies een optie',
+                    messageValueMissingSelectMulti: 'Kies een of meerdere opties',
+                    messageTypeMismatchEmail: 'Vul een geldig e-mailadres in.',
+                    messageTypeMismatchURL: 'Vul een geldige url in.',
+                    messageTooShort: 'Deze tekst moet minstens {minLength} tekens bevatten. Je gebruikt nu maar {length} tekens.',
+                    messageTooLong: 'Deze tekst mag maar {maxLength} tekens bevatten. Je gebruikt nu {length} tekens.',
+                    messagePatternMismatch: 'Vul dit veld in volgens het aangegeven patroon.',
+                    messageBadInput: 'Vul een geldig getal in.',
+                    messageStepMismatch: 'Vul een geldig getal in zoals aangegeven.',
+                    messageRangeOverflow: 'Deze waarde mag niet hoger zijn dan {max}.',
+                    messageRangeUnderflow: 'Deze waarde mag niet lager zijn dan {min}.',
+                    messageGeneric: 'Vul een geldige waarde in.',
+                }
+            </script>
+
+            <h1 class="form__title">Form Elements</h1>
+            <h2 class="form__subtitle">Inputs</h2>
+
+            <input type="hidden" name="hidden" class="form__group__input" required>
+
+            <div class="form__group">
+                <label for="text" class="form__group__label">Text</label>
+                <input type="text" name="text" class="form__group__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="email" class="form__group__label">Email</label>
+                <input type="email" name="email" class="form__group__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="number" class="form__group__label">Number</label>
+                <input type="number" name="number" class="form__group__input" required min="3" max="10">
+            </div>
+
+            <div class="form__group">
+                <label for="url" class="form__group__label">Url</label>
+                <input type="url" name="url" class="form__group__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="password" class="form__group__label">Password</label>
+                <input type="password" name="password" class="form__group__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="file" class="form__group__label">File</label>
+                <input type="file" name="file" class="form__group__input" required>
+            </div>
+
+            <div class="form__group">
+                <label for="checkbox" class="form__group__label">Checkbox</label>
+                <label class="form__group__checkbox">
+                    <input type="checkbox" name="checkbox" class="form__group__input" required>
+                    <span class="form__group__checkbox__text">yes</span>
+                </label>
+            </div>
+
+            <div class="form__group">
+                <label for="radio" class="form__group__label">Radio</label>
+                <label class="form__group__radio">
+                    <input type="radio" name="radio" class="form__group__input" required value="yes">
+                    <span class="form__group__radio__text">yes</span>
+                </label>
+                <label class="form__group__radio">
+                    <input type="radio" name="radio" class="form__group__input" required value="no">
+                    <span class="form__group__radio__text">no</span>
+                </label>
+            </div>
+
+            <div class="form__group">
+                <label for="select" class="form__group__label">Select</label>
+                <select name="select" required>
+                    <option value="" disabled selected>Kies een optie</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div class="form__group">
+                <label for="selectMulti" class="form__group__label">Select Multiple</label>
+                <select name="selectMulti" required multiple size="4">
+                    <option value="" disabled>Kies een optie</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+
+            <div class="form__group">
+                <label for="textarea" class="form__group__label">Textarea</label>
+                <textarea name="textarea" cols="30" rows="10" class="form__group__input" required></textarea>
+            </div>
+
+            <div class="form__group">
+                <label for="datalist" class="form__group__label">Datalist</label>
+                <input name="datalist" list="browsers" class="form__group__input" required>
+                <datalist id="browsers">
+                    <option value="Internet Explorer">
+                    <option value="Firefox">
+                    <option value="Chrome">
+                    <option value="Opera">
+                    <option value="Safari">
+                </datalist>
+            </div>
+
+            <h2 class="form__subtitle">Custom error placement</h2>
+
+            <div class="form__group">
+                <label for="errorPlacement" class="form__group__label">Input</label>
+                <div id="error-for-errorPlacement" class="form__group__error"></div>
+                <input type="text" name="errorPlacement" class="form__group__input" required>
+            </div>
+
+            <h2 class="form__subtitle">Custom error messages</h2>
+
+            <div class="form__group">
+                <label for="valueMissing" class="form__group__label">Value missing</label>
+                <input type="text" name="valueMissing" class="form__group__input" data-error-valueMissing="Vul hier iets in" required>
+            </div>
+
+            <div class="form__group">
+                <label for="valueMissingSelect" class="form__group__label">Missing select value</label>
+                <select name="valueMissingSelect" data-error-valueMissingSelect="Je moet hier een optie kiezen" required>
+                    <option value="" disabled selected>Kies een optie</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+
+            <div class="form__group">
+                <label for="valueMissingSelectMulti" class="form__group__label">Missing select value(s)</label>
+                <select name="valueMissingSelectMulti" data-error-valueMissingSelectMulti="Je moet hier een of meerdere opties kiezen" required multiple size="4">
+                    <option value="" disabled>Kies een optie</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+
+            <div class="form__group">
+                <label for="wrongEmail" class="form__group__label">Wrong email</label>
+                <input type="email" name="wrongEmail" class="form__group__input" value="test" data-error-email="Vul een geldig e-mailadres in" required>
+            </div>
+
+            <div class="form__group">
+                <label for="wrongUrl" class="form__group__label">Wrong url</label>
+                <input type="url" name="wrongUrl" class="form__group__input" value="test" data-error-url="Vul een geldige url in" required>
+            </div>
+
+            <div class="form__group">
+                <label for="tooShort" class="form__group__label">Too short</label>
+                <input type="text" name="tooShort" class="form__group__input" minlength="6" placeholder="To test, fill out 'test'" data-error-tooShort="Deze tekst moet minstens 6 tekens lang zijn" required>
+            </div>
+
+            <div class="form__group">
+                <label for="tooLong" class="form__group__label">Too long</label>
+                <input type="text" name="tooLong" class="form__group__input" maxlength="6" data-error-tooLong="Deze tekst mag niet langer zijn dan 6 tekens" required>
+            </div>
+
+            <div class="form__group">
+                <label for="badInput" class="form__group__label">Bad input(not a number)</label>
+                <input type="number" name="badInput" class="form__group__input" data-error-badInput="Je mag hier alleen nummers invullen" required>
+            </div>
+
+            <div class="form__group">
+                <label for="stepMismatch" class="form__group__label">Step mismatch</label>
+                <input type="number" name="stepMismatch" class="form__group__input" step="3" placeholder="to test, fill with 1" data-error-stepMismatch="Je kunt hier alleen een cijfer invullen wat een vermedigvuldiging is van 3" required>
+            </div>
+
+            <div class="form__group">
+                <label for="rangeOverflow" class="form__group__label">Range overflow</label>
+                <input type="number" name="rangeOverflow" class="form__group__input" max="30" value="40" data-error-rangeOverflow="De waarde mag niet hoger zijn dan 30" required>
+            </div>
+
+            <div class="form__group">
+                <label for="rangeUnderflow" class="form__group__label">Range underflow</label>
+                <input type="number" name="rangeUnderflow" class="form__group__input" min="30" value="20" data-error-rangeUnderflow="De waarde mag niet lager zijn dan 30" required>
+            </div>
+
+            <div class="form__group">
+                <label for="patternMismatch" class="form__group__label">Pattern mismatch</label>
+                <input type="text" name="patternMismatch" class="form__group__input" value="test" pattern="[0-9]" title="Je kunt hier alleen cijfers gebruiken" required>
+            </div>
+
+            <div class="form__group">
+                <button class="button button--primary">Submit form</button>
+            </div>
+        </form>
+
+        <script type="text/javascript" src="dist/js/validate.min.js"></script>
+        <script type="text/javascript" src="dist/js/validityState-polyfill.min.js"></script>
+        <script>
+            validate.init({
+                // Classes and Selectors
+                selector: '[data-validate]', // The selector for forms to validate
+                fieldClass: 'has-error', // The class to apply to fields with errors
+                errorClass: 'form__group__error', // The class to apply to error messages
+
+                // Messages
+                messageValueMissing: (typeof messages !== 'undefined' && messages.messageValueMissing) ? messages.messageValueMissing : 'Please fill this input',
+                messageValueMissingSelect: (typeof messages !== 'undefined' && messages.messageValueMissingSelect) ? messages.messageValueMissingSelect : 'Please select a value',
+                messageValueMissingSelectMulti: (typeof messages !== 'undefined' && messages.messageValueMissingSelectMulti) ? messages.messageValueMissingSelectMulti : 'Please select at least one value',
+                messageTypeMismatchEmail: (typeof messages !== 'undefined' && messages.messageTypeMismatchEmail) ? messages.messageTypeMismatchEmail : 'Please enter an email address',
+                messageTypeMismatchURL: (typeof messages !== 'undefined' && messages.messageTypeMismatchURL) ? messages.messageTypeMismatchURL : 'Please enter a URL',
+                messageTooShort: (typeof messages !== 'undefined' && messages.messageTooShort) ? messages.messageTooShort : 'Please lengthen this text to {minLength} characters or more. You are currently using {length} characters',
+                messageTooLong: (typeof messages !== 'undefined' && messages.messageTooLong) ? messages.messageTooLong : 'Please shorten this text to no more than {maxLength} characters. You are currently using {length} characters',
+                messagePatternMismatch: (typeof messages !== 'undefined' && messages.messagePatternMismatch) ? messages.messagePatternMismatch : 'Please match the requested format',
+                messageBadInput: (typeof messages !== 'undefined' && messages.messageBadInput) ? messages.messageBadInput : 'Please enter a number',
+                messageStepMismatch: (typeof messages !== 'undefined' && messages.messageStepMismatch) ? messages.messageStepMismatch : 'Please select a valid value',
+                messageRangeOverflow: (typeof messages !== 'undefined' && messages.messageRangeOverflow) ? messages.messageRangeOverflow : 'Please select a value that is no more than {max}',
+                messageRangeUnderflow: (typeof messages !== 'undefined' && messages.messageRangeUnderflow) ? messages.messageRangeUnderflow : 'Please select a value that is no less than {min}',
+                messageGeneric: (typeof messages !== 'undefined' && messages.messageGeneric) ? messages.messageGeneric : 'The value you entered for this field is invalid',
+
+                // Form Submission
+                disableSubmit: false, // If true, don't submit the form to the server (for Ajax for submission)
+                onSubmit: function (form, fields) {}, // Function to run if the form successfully validates
+
+                // Callbacks
+                beforeShowError: function (field, error) {
+
+                }, // Function to run before an error is display
+                afterShowError: function (field, error) {
+
+                }, // Function to run after an error is display
+                beforeRemoveError: function (field) {}, // Function to run before an error is removed
+                afterRemoveError: function (field) {}, // Function to run after an error is removed
+            });
+        </script>
+    </body>
+</html>
