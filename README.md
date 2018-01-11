@@ -9,6 +9,10 @@ When a visitor leaves a field, Validate.js immediately validates the field and d
 
 <hr>
 
+__*Included in this repo is a demo.html which contains a extensive form with all markup options, including translating default error messages and adding custom error messages per input.*__
+
+<hr>
+
 
 ## Getting Started
 
@@ -50,82 +54,34 @@ If you're using validation patterns, you can also include a `title` with a custo
 </div>
 ```
 
-#### hasError()
-Check if a field has a validation error.
+To translate the default messages, you can overwrite them by adding this to your form:
 
-```javascript
-validate.hasError(
-	field, // The field to validate
-	options // User settings, same as the ones passed in during validate.init() [optional]
-);
+```html
+<form>
+	<script>
+		var messages = {
+		    messageValueMissing: 'Dit veld is verplicht.',
+		    messageValueMissingSelect: 'Kies een optie',
+		    messageValueMissingSelectMulti: 'Kies een of meerdere opties',
+		    messageTypeMismatchEmail: 'Vul een geldig e-mailadres in.',
+		    messageTypeMismatchURL: 'Vul een geldige url in.',
+		    messageTooShort: 'Deze tekst moet minstens {minLength} tekens bevatten. Je gebruikt nu maar {length} tekens.',
+		    messageTooLong: 'Deze tekst mag maar {maxLength} tekens bevatten. Je gebruikt nu {length} tekens.',
+		    messagePatternMismatch: 'Vul dit veld in volgens het aangegeven patroon.',
+		    messageBadInput: 'Vul een geldig getal in.',
+		    messageStepMismatch: 'Vul een geldig getal in zoals aangegeven.',
+		    messageRangeOverflow: 'Deze waarde mag niet hoger zijn dan {max}.',
+		    messageRangeUnderflow: 'Deze waarde mag niet lager zijn dan {min}.',
+		    messageGeneric: 'Vul een geldige waarde in.',
+		}
+	</script>
+	...
 ```
 
-**Example**
+To add a custom message to an input, you add `data-error-[type of error]` to your input, followed by the error message. Like so:
 
-```javascript
-var field = document.querySelector('[name="email"]');
-var error = validate.hasError(field);
-
-if (error) {
-	// Do something...
-}
-```
-
-#### showError()
-Show an error message on a field.
-
-```javascript
-validate.showError(
-	field, // The field to show an error message for
-	error, // The error message to show
-	options // User settings, same as the ones passed in during validate.init() [optional]
-);
-```
-
-**Example 1: Write your own error**
-
-```javascript
-var field = document.querySelector('[name="email"]');
-var error = 'This field is wrong, dude!';
-validate.showError(field, error);
-```
-
-**Example 2: Using `hasError()`**
-
-```javascript
-var field = document.querySelector('[name="url"]');
-var error = validate.hasError(field);
-validate.showError(field, error);
-```
-
-#### removeError()
-Remove the error message from a field.
-
-```javascript
-/**
- * Remove an error message from a field
- * @public
- * @param  {Node}   field   The field to remove the error from
- * @param  {Object} options User options
- */
-validate.removeError(
-	field, // The field to remove the error from
-	options // User settings, same as the ones passed in during validate.init() [optional]
-);
-```
-
-**Example**
-
-```javascript
-var field = document.querySelector('[name="email"]');
-validate.removeError(field);
-```
-
-#### destroy()
-Destroy the current `validate.init()`. Removes all errors and resets the DOM. This is called automatically during the `init` function to remove any existing initializations.
-
-```javascript
-validate.destroy();
+```html
+<input type="text" name="Name" class="form__group__input" data-error-valueMissing="Vul je naam in" required>
 ```
 
 ## License
