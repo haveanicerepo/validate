@@ -140,124 +140,136 @@
      * @param  {Object}  options User options
      * @return {String}          The error message
      */
-    validate.hasError = function (field, options) {
+     validate.hasError = function (field, options) {
 
-        // Merge user options with existing settings or defaults
-        var localSettings = extend(settings || defaults, options || {});
+         // Merge user options with existing settings or defaults
+         var localSettings = extend(settings || defaults, options || {});
 
-        // Don't validate submits, buttons, file and reset inputs, and disabled fields
-        if (field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') return;
+         // Don't validate submits, buttons, file and reset inputs, and disabled fields
+         if (field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') return;
 
-        // Get validity
-        var validity = field.validity;
+         // Get validity
+         var validity = field.validity;
 
-        // If valid, return null
-        if (validity.valid) return;
+         // If valid, return null
+         if (validity.valid) return;
 
-        // If field is required and empty
-        if (validity.valueMissing) {
+         // If field is required and empty
+         if (validity.valueMissing) {
 
-            if (field.getAttribute('data-error-missing')) return field.getAttribute('data-error-missing');
+             if (field.getAttribute('data-error-valueMissing')) return field.getAttribute('data-error-valueMissing');
 
-            if (field.type === 'select-multiple') return localSettings.messageValueMissingSelectMulti;
+             if (field.type === 'select-multiple') {
+                 if (field.getAttribute('data-error-valueMissingSelectMulti')) {
+                     return field.getAttribute('data-error-valueMissingSelectMulti');
+                 } else {
+                     return localSettings.messageValueMissingSelectMulti;
+                 }
+             }
 
-            if (field.type === 'select-one') return localSettings.messageValueMissingSelect;
+             if (field.type === 'select-one') {
+                 if (field.getAttribute('data-error-valueMissingSelect')) {
+                     return field.getAttribute('data-error-valueMissingSelect');
+                 } else {
+                     return localSettings.messageValueMissingSelect;
+                 }
+             }
 
-            return localSettings.messageValueMissing;
-        }
+             return localSettings.messageValueMissing;
+         }
 
-        // If not the right type
-        if (validity.typeMismatch) {
+         // If not the right type
+         if (validity.typeMismatch) {
 
-            // Email
-            if (field.type === 'email') {
-                if (field.getAttribute('data-error-email')) {
-                    return field.getAttribute('data-error-email');
-                } else {
-                    return localSettings.messageTypeMismatchEmail;
-                }
-            }
+             // Email
+             if (field.type === 'email') {
+                 if (field.getAttribute('data-error-email')) {
+                     return field.getAttribute('data-error-email');
+                 } else {
+                     return localSettings.messageTypeMismatchEmail;
+                 }
+             }
 
-            // URL
-            if (field.type === 'url') {
-                if (field.getAttribute('data-error-url')) {
-                    return field.getAttribute('data-error-url');
-                } else {
-                    return localSettings.messageTypeMismatchURL;
-                }
-            }
+             // URL
+             if (field.type === 'url') {
+                 if (field.getAttribute('data-error-url')) {
+                     return field.getAttribute('data-error-url');
+                 } else {
+                     return localSettings.messageTypeMismatchURL;
+                 }
+             }
 
-        }
+         }
 
-        // If too short
-        if (field.type === 'url') {
-            if (field.getAttribute('data-error-url')) {
-                return field.getAttribute('data-error-url');
-            } else {
-                return localSettings.messageTypeMismatchURL;
-            }
-        }
+         // If too short
+         if (validity.tooShort) {
+             if (field.getAttribute('data-error-tooShort')) {
+                 return field.getAttribute('data-error-tooShort');
+             } else {
+                 return localSettings.messageTooShort.replace('{minLength}', field.getAttribute('minLength')).replace('{length}', field.value.length);
+             }
+         }
 
-        // If too long
-        if (validity.tooLong) {
-            if (field.getAttribute('data-error-tooLong')) {
-                return field.getAttribute('data-error-tooLong');
-            } else {
-                return localSettings.messageTooLong.replace('{minLength}', field.getAttribute('maxLength')).replace('{length}', field.value.length);
-            }
-        }
+         // If too long
+         if (validity.tooLong) {
+             if (field.getAttribute('data-error-tooLong')) {
+                 return field.getAttribute('data-error-tooLong');
+             } else {
+                 return localSettings.messageTooLong.replace('{minLength}', field.getAttribute('maxLength')).replace('{length}', field.value.length);
+             }
+         }
 
-        // If number input isn't a number
-        if (validity.badInput) {
-            if (field.getAttribute('data-error-badInput')) {
-                return field.getAttribute('data-error-badInput');
-            } else {
-                return localSettings.messageBadInput;
-            }
-        }
+         // If number input isn't a number
+         if (validity.badInput) {
+             if (field.getAttribute('data-error-badInput')) {
+                 return field.getAttribute('data-error-badInput');
+             } else {
+                 return localSettings.messageBadInput;
+             }
+         }
 
-        // If a number value doesn't match the step interval
-        if (validity.stepMismatch) {
-            if (field.getAttribute('data-error-stepMismatch')) {
-                return field.getAttribute('data-error-stepMismatch');
-            } else {
-                return localSettings.messagestepMismatch;
-            }
-        }
+         // If a number value doesn't match the step interval
+         if (validity.stepMismatch) {
+             if (field.getAttribute('data-error-stepMismatch')) {
+                 return field.getAttribute('data-error-stepMismatch');
+             } else {
+                 return localSettings.messagestepMismatch;
+             }
+         }
 
-        // If a number field is over the max
-        if (validity.rangeOverflow) {
-            if (field.getAttribute('data-error-rangeOverflow')) {
-                return field.getAttribute('data-error-rangeOverflow');
-            } else {
-                return localSettings.messageRangeOverflow.replace('{max}', field.getAttribute('max'));
-            }
-        }
+         // If a number field is over the max
+         if (validity.rangeOverflow) {
+             if (field.getAttribute('data-error-rangeOverflow')) {
+                 return field.getAttribute('data-error-rangeOverflow');
+             } else {
+                 return localSettings.messageRangeOverflow.replace('{max}', field.getAttribute('max'));
+             }
+         }
 
-        // If a number field is below the min
-        if (validity.rangeUnderflow) {
-            if (field.getAttribute('data-error-rangeUnderflow')) {
-                return field.getAttribute('data-error-rangeUnderflow');
-            } else {
-                return localSettings.messageRangeUnderflow.replace('{min}', field.getAttribute('min'));
-            }
-        }
+         // If a number field is below the min
+         if (validity.rangeUnderflow) {
+             if (field.getAttribute('data-error-rangeUnderflow')) {
+                 return field.getAttribute('data-error-rangeUnderflow');
+             } else {
+                 return localSettings.messageRangeUnderflow.replace('{min}', field.getAttribute('min'));
+             }
+         }
 
-        // If pattern doesn't match
-        if (validity.patternMismatch) {
+         // If pattern doesn't match
+         if (validity.patternMismatch) {
 
-            // If pattern info is included, return custom error
-            if (field.hasAttribute('title')) return field.getAttribute('title');
+             // If pattern info is included, return custom error
+             if (field.hasAttribute('title')) return field.getAttribute('title');
 
-            // Otherwise, generic error
-            return localSettings.messagePatternMismatch;
+             // Otherwise, generic error
+             return localSettings.messagePatternMismatch;
 
-        }
+         }
 
-        // If all else fails, return a generic catchall error
-        return localSettings.messageGeneric;
+         // If all else fails, return a generic catchall error
+         return localSettings.messageGeneric;
 
-    };
+     };
 
     /**
      * Show an error message on a field
