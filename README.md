@@ -60,19 +60,19 @@ To translate the default messages, you can overwrite them by adding this to your
 <form>
 	<script>
 		var messages = {
-		    messageValueMissing: 'Dit veld is verplicht.',
-		    messageValueMissingSelect: 'Kies een optie',
-		    messageValueMissingSelectMulti: 'Kies een of meerdere opties',
-		    messageTypeMismatchEmail: 'Vul een geldig e-mailadres in.',
-		    messageTypeMismatchURL: 'Vul een geldige url in.',
-		    messageTooShort: 'Deze tekst moet minstens {minLength} tekens bevatten. Je gebruikt nu maar {length} tekens.',
-		    messageTooLong: 'Deze tekst mag maar {maxLength} tekens bevatten. Je gebruikt nu {length} tekens.',
-		    messagePatternMismatch: 'Vul dit veld in volgens het aangegeven patroon.',
-		    messageBadInput: 'Vul een geldig getal in.',
-		    messageStepMismatch: 'Vul een geldig getal in zoals aangegeven.',
-		    messageRangeOverflow: 'Deze waarde mag niet hoger zijn dan {max}.',
-		    messageRangeUnderflow: 'Deze waarde mag niet lager zijn dan {min}.',
-		    messageGeneric: 'Vul een geldige waarde in.',
+			messageValueMissing: 'Dit veld is verplicht.',
+			messageValueMissingSelect: 'Kies een optie',
+			messageValueMissingSelectMulti: 'Kies een of meerdere opties',
+			messageTypeMismatchEmail: 'Vul een geldig e-mailadres in.',
+			messageTypeMismatchURL: 'Vul een geldige url in.',
+			messageTooShort: 'Deze tekst moet minstens {minLength} tekens bevatten. Je gebruikt nu maar {length} tekens.',
+			messageTooLong: 'Deze tekst mag maar {maxLength} tekens bevatten. Je gebruikt nu {length} tekens.',
+			messagePatternMismatch: 'Vul dit veld in volgens het aangegeven patroon.',
+			messageBadInput: 'Vul een geldig getal in.',
+			messageStepMismatch: 'Vul een geldig getal in zoals aangegeven.',
+			messageRangeOverflow: 'Deze waarde mag niet hoger zijn dan {max}.',
+			messageRangeUnderflow: 'Deze waarde mag niet lager zijn dan {min}.',
+			messageGeneric: 'Vul een geldige waarde in.',
 		}
 	</script>
 	...
